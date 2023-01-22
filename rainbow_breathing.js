@@ -17,6 +17,11 @@ export function sliderRainbows(r) {
   rLength = max(min(r*maxRainbows, maxRainbows), minRainbows)
 }
 
+var h1 = 1
+export function sliderHue(hue) {
+  h1 = hue
+}
+
 // How fast the saturation changes
 export function sliderSaturationWave(saturationFrequency) {
   satFrequency = max(.1, saturationFrequency)
@@ -27,10 +32,22 @@ export function sliderSaturationRange(saturationRange) {
   satRange = saturationRange
 }
 
-export function render(index) {
-  h = time(.1 / tf / speed) + index/pixelCount * rLength
-  s = 1 - wave(time(.08 / satFrequency)) * satRange
-  hsv(h, s, 1) // control brightness with built in brightness slider
+// How fast the brightness changes
+export function sliderBrightnessWave(brightnessFrequency) {
+  vFrequency = max(.1, brightnessFrequency)
 }
 
-export var t1,t2,t3,h,s,v,speed,satRange,satFrequency;
+// How much brightness you lose from 100%
+export function sliderBrightnessRange(brightnessRange) {
+  vRange = brightnessRange
+}
+
+export function render(index) {
+  // if hue slider is 1, rainbow mode, otherwise hue from slider
+  h = h1 == 1 ? time(.1 / tf / speed) + index/pixelCount * rLength : h1
+  s = 1 - wave(time(.08 / satFrequency)) * satRange
+  v = 1 - wave(time(.08 / vFrequency)) * vRange
+  hsv(h, s, v) // control brightness with built in brightness slider
+}
+
+export var t1,t2,t3,h,h1,s,v,speed,satRange,satFrequency;
