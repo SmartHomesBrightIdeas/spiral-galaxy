@@ -12,8 +12,8 @@ export function sliderSpeed(z) {
 }
 
 // Number of rainbows, min and max (1-n)
-var maxRainbows = 3
-var minRainbows = .1
+var maxRainbows = 5
+var minRainbows = 1
 var rLength = 1
 export function sliderRainbows(r) {
   rLength = max(min(r*maxRainbows, maxRainbows), minRainbows)
@@ -62,10 +62,14 @@ export function sliderRainbowRange(rainbowRange) {
 }
 
 
+
 export function render(index) {
   // if hue slider is 1, rainbow mode, otherwise hue from slider
-  h = h1 == 1 ? wave(time(.2 / speed)) + index/pixelCount * max(1, rainbowRange * rLength * wave(time(.8 * rainbowFrequency))) : h1
-
+  if (direction == 0) { 
+    h = h1 == 1 ? time(.3 / speed) + index/pixelCount * max(1, rainbowRange * rLength * wave(time(.8 * rainbowFrequency))) : h1
+  } else {
+      h = h1 == 1 ? 1-(time(.3 / speed)) + index/pixelCount * max(1, rainbowRange * rLength * wave(time(.8 * rainbowFrequency))) : h1
+  }
   // if (h==1) {
   //   time(.1 / tf / speed) + index/pixelCount * rLength
   // } else {
