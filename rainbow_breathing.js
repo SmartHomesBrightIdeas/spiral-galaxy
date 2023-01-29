@@ -1,3 +1,5 @@
+// Authors: Andrew Dolan and Bill Ernst
+
 // A Breathing Slow Rainbow with Sliders
 
 var direction = 0 // 0 for outward, 1 for inward
